@@ -5,4 +5,4 @@ qtHiero
 # Generated source files
 moc_mainwindow.cpp
 ui_mainwindow.h
-
+Makefile

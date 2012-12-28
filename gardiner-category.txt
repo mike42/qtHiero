@@ -1,0 +1,29 @@
+A	Man and his occupations
+B	Woman and her occupations
+C	Anthropomorphic deities
+D	Parts of the human body
+E	Mammals
+F	Parts of mammals
+G	Birds
+H	Parts of birds
+I	Amphibious animals, reptiles, etc.
+K	Fishes and parts of fishes
+L	Invertabrata and lesser animals
+M	Trees and plants
+N	Sky, earth, water
+NL	Nomes of Lower Egypt
+NU	Nomes of Upper Egypt
+O	Buildings, parts of buildings, etc.
+P	Ships and parts of ships
+Q	Domestic and funerary furniture
+R	Temple furniture and sacred emblems
+S	Crowns, dress, staves, etc.
+T	Warfare, hunting, butchery
+U	Agriculture, crafts, and professions
+V	Rope, fiber, baskets, bags, etc.
+W	Vessels of stone and earthenware
+X	Loaves and cakes
+Y	Writings, games, music
+Z	Strokes, signs derived from Hieratic, geometrical figures
+AA	Unclassified
+

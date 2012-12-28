@@ -63,7 +63,7 @@ QMap<QString, GardinerCategory> MainWindow :: loadGardinerSignsFromFile(const ch
         cerr << "Warning: Failed to open " << signFilename << endl;
         return category;
     }
-    QString gardinerCodeShort, gardinerCode;
+    QString gardinerCode;
     QString glyphStr;
     uint32_t unicodeChar;
     lineNo = 0;
@@ -79,16 +79,6 @@ QMap<QString, GardinerCategory> MainWindow :: loadGardinerSignsFromFile(const ch
                 categoryCode = QString::fromStdString(line.substr(tab, nextTab - tab));
             } else {
                 fail = true;
-            }
-
-            if(!fail) {
-                tab = nextTab + 1;
-                nextTab = line.find_first_of('\t', tab);
-                if(nextTab != string::npos) {
-                    gardinerCodeShort = QString::fromStdString(line.substr(tab, nextTab - tab));
-                } else {
-                    fail = true;
-                }
             }
 
             if(!fail) {
@@ -122,8 +112,8 @@ QMap<QString, GardinerCategory> MainWindow :: loadGardinerSignsFromFile(const ch
 					/* Create glyph and add to category */
 					newGlyph = new Glyph();
 					newGlyph -> unicodeChar = unicodeChar;
-					newGlyph -> gardinerCode = gardinerCodeShort;
-					newGlyph -> translitMdC = gardinerCodeShort;
+					newGlyph -> gardinerCode = gardinerCode;
+					newGlyph -> translitMdC = gardinerCode;
 					glyph[glyphStr] = *newGlyph;
 
 					category[categoryCode].glyphList << glyphStr;

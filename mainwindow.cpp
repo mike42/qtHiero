@@ -63,8 +63,7 @@ QMap<QString, GardinerCategory> MainWindow :: loadGardinerSignsFromFile(const ch
         cerr << "Warning: Failed to open " << signFilename << endl;
         return category;
     }
-    QString gardinerCode;
-    QString glyphStr;
+    QString gardinerCode, glyphStr, translitMdC;
     uint32_t unicodeChar;
     lineNo = 0;
     while(getline(fileSigns, line)) {
@@ -95,13 +94,25 @@ QMap<QString, GardinerCategory> MainWindow :: loadGardinerSignsFromFile(const ch
                 tab = nextTab + 1;
                 nextTab = line.find_first_of('\t', tab);
                 if(nextTab != string::npos) {
-                    fail = true;
-                } else {
-					/* Load unicode char from hex as uint32_t */
+                    /* Load unicode char from hex as uint32_t */
                     unicodeChar = (uint32_t) strtol(line.substr(tab, len - tab).c_str(), NULL, 16);
 					glyphStr = unicode2qstr(unicodeChar);
+                } else {
+					fail = true;
                 }
             }
+
+ 			if(!fail) {
+                tab = nextTab + 1;
+                nextTab = line.find_first_of('\t', tab);
+                if(nextTab != string::npos) {
+					fail = true;
+                } else {
+					/* Load MdC transliteration */
+                    translitMdC = QString::fromStdString(line.substr(tab, nextTab - tab));
+                }
+            }
+
 
             /* Add to collection */
             if(fail) {
@@ -113,7 +124,7 @@ QMap<QString, GardinerCategory> MainWindow :: loadGardinerSignsFromFile(const ch
 					newGlyph = new Glyph();
 					newGlyph -> unicodeChar = unicodeChar;
 					newGlyph -> gardinerCode = gardinerCode;
-					newGlyph -> translitMdC = gardinerCode;
+					newGlyph -> translitMdC = translitMdC;
 					glyph[glyphStr] = *newGlyph;
 
 					category[categoryCode].glyphList << glyphStr;

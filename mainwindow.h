@@ -34,6 +34,7 @@ class MainWindow : public QMainWindow {
 	public:
 		MainWindow(QWidget *parent = 0, Qt::WindowFlags flags = 0);
 		void loadGardinerSigns(const char* categoryFilename, const char* signFilename);
+		void loadLiterals(const char* literalsFilename);
 
 	protected slots:
 		void updateGardinerCategory(int itemIndex);
@@ -43,7 +44,9 @@ class MainWindow : public QMainWindow {
 		Ui::MainWindow ui;
 		QMap<QString, Glyph> glyph;
 		QMap<QString, GardinerCategory> gardinerSignCategory;
+		QStringList uniliteralStringList, biliteralStringList, triliteralStringList;
 		QString unicode2qstr(uint32_t character);
 
 		QMap<QString, GardinerCategory> loadGardinerSignsFromFile(const char* categoryFilename, const char* signFilename);
+		void loadLiteralsFromFile(const char* literalsFilename);
 };

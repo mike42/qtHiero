@@ -215,3 +215,18 @@ void MainWindow :: addGardinerSign(QModelIndex itemIndex) {
 	ui.plainTextEdit -> textCursor().insertText(translit);
 	ui.plainTextEdit -> setFocus();
 }
+
+/**
+ * Populate lists of literals in UI.
+ **/
+void MainWindow :: loadLiterals(const char* literalsFilename) {
+	loadLiteralsFromFile(literalsFilename);
+
+	// TODO: fill list boxes in UI.
+}
+
+/**
+ * Load literals file and store in uniliteralStringList, biliteralStringList, triliteralStringList */
+void MainWindow :: loadLiteralsFromFile(const char* literalsFilename) {
+	// TODO: load file here
+}

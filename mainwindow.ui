@@ -35,9 +35,24 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>141</width>
+        <width>161</width>
         <height>281</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Aegean</family>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="flow">
+       <enum>QListView::LeftToRight</enum>
+      </property>
+      <property name="isWrapping" stdset="0">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -50,9 +65,24 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>141</width>
+        <width>161</width>
         <height>281</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Aegean</family>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="flow">
+       <enum>QListView::LeftToRight</enum>
+      </property>
+      <property name="isWrapping" stdset="0">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -65,9 +95,24 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>141</width>
+        <width>161</width>
         <height>281</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Aegean</family>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="flow">
+       <enum>QListView::LeftToRight</enum>
+      </property>
+      <property name="isWrapping" stdset="0">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>

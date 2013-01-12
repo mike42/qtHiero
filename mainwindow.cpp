@@ -176,6 +176,9 @@ MainWindow :: MainWindow(QWidget *parent, Qt::WindowFlags flags)
 
 	connect(ui.cboGardinerCategory, SIGNAL(currentIndexChanged (int)), this, SLOT(updateGardinerCategory(int)));
 	connect(ui.listGardiner, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addGardinerSign(QModelIndex)));
+	connect(ui.listUniliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addUniliteralSign(QModelIndex)));
+	connect(ui.listBiliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addBiliteralSign(QModelIndex)));
+	connect(ui.listTriliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addTriliteralSign(QModelIndex)));
 }
 
 /**
@@ -203,10 +206,41 @@ void MainWindow :: updateGardinerCategory(int itemIndex) {
 /**
  * Insert an item from the gardiner list
  **/
-void MainWindow :: addGardinerSign(QModelIndex itemIndex) {
+void MainWindow :: addGardinerSign(QModelIndex itemIndex) {\
 	QString glyphStr = ui.listGardiner -> model() -> data(itemIndex).toString();
+	appendGlyphTranslit(glyphStr);
+}
+
+/**
+ * Insert an item from the uniliteral list
+ **/
+void MainWindow :: addUniliteralSign(QModelIndex itemIndex) {
+	QString glyphStr = ui.listUniliteral -> model() -> data(itemIndex).toString();
+	appendGlyphTranslit(glyphStr);
+}
+
+/**
+ * Insert an item from the biliteral list
+ **/
+void MainWindow :: addBiliteralSign(QModelIndex itemIndex) {
+	QString glyphStr = ui.listBiliteral -> model() -> data(itemIndex).toString();
+	appendGlyphTranslit(glyphStr);
+}
+
+/**
+ * Insert an item from the triliteral list
+ **/
+void MainWindow :: addTriliteralSign(QModelIndex itemIndex) {
+	QString glyphStr = ui.listTriliteral -> model() -> data(itemIndex).toString();
+	appendGlyphTranslit(glyphStr);
+}
+
+/**
+ * Append the MdC transliteration of a glyph to the box
+ **/
+void MainWindow :: appendGlyphTranslit(QString glyphStr) {
 	if(glyph.count(glyphStr) <= 0) {
-		cerr << "Selected glyph does not exist.\n";
+		cerr << "Selected glyph does not exist." << endl;
 		return;
 	}
 
@@ -221,8 +255,6 @@ void MainWindow :: addGardinerSign(QModelIndex itemIndex) {
  **/
 void MainWindow :: loadLiterals(const char* literalsFilename) {
 	loadLiteralsFromFile(literalsFilename);
-
-	/* TODO: Fill list boxes in UI */
 	ui.listUniliteral -> setModel(new QStringListModel(uniliteralStringList));
 	ui.listBiliteral -> setModel(new QStringListModel(biliteralStringList));
 	ui.listTriliteral -> setModel(new QStringListModel(triliteralStringList));

@@ -39,6 +39,9 @@ class MainWindow : public QMainWindow {
 	protected slots:
 		void updateGardinerCategory(int itemIndex);
 		void addGardinerSign(QModelIndex itemIndex);
+		void addUniliteralSign(QModelIndex itemIndex);
+		void addBiliteralSign(QModelIndex itemIndex);
+		void addTriliteralSign(QModelIndex itemIndex);
 
 	private:
 		Ui::MainWindow ui;
@@ -49,4 +52,5 @@ class MainWindow : public QMainWindow {
 
 		QMap<QString, GardinerCategory> loadGardinerSignsFromFile(const char* categoryFilename, const char* signFilename);
 		void loadLiteralsFromFile(const char* literalsFilename);
+		void appendGlyphTranslit(QString glyphStr);
 };

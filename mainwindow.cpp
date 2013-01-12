@@ -222,11 +222,94 @@ void MainWindow :: addGardinerSign(QModelIndex itemIndex) {
 void MainWindow :: loadLiterals(const char* literalsFilename) {
 	loadLiteralsFromFile(literalsFilename);
 
-	// TODO: fill list boxes in UI.
+	/* TODO: Fill list boxes in UI */
+	ui.listUniliteral -> setModel(new QStringListModel(uniliteralStringList));
+	ui.listBiliteral -> setModel(new QStringListModel(biliteralStringList));
+	ui.listTriliteral -> setModel(new QStringListModel(triliteralStringList));
 }
 
 /**
- * Load literals file and store in uniliteralStringList, biliteralStringList, triliteralStringList */
+ * Load literals file and store in uniliteralStringList, biliteralStringList, triliteralStringList
+ */
 void MainWindow :: loadLiteralsFromFile(const char* literalsFilename) {
-	// TODO: load file here
+	/* Open literals file */
+	ifstream fileLiterals (literalsFilename, ifstream::in);
+    if(!fileLiterals.is_open()) {
+        cerr << "Warning: Failed to open " << literalsFilename << endl;
+        return;
+    }
+
+	uint32_t unicodeChar;
+	QString glyphStr;
+	size_t tab, len, nextTab, lineNo;
+	bool fail;
+	string line;
+
+	/* Read each line */
+    lineNo = 0;
+	while(getline(fileLiterals, line)) {
+		lineNo++;
+		len = line.length();
+		fail = false;
+        if(line.find_first_of('#') != 0 && len != 0) {
+            /* Only process non-empty lines which do not begin with a # */
+			tab = 0;
+			nextTab = line.find_first_of('\t');
+			if(nextTab != string::npos) {
+				/* Load glyph as string */
+				unicodeChar = (uint32_t) strtol(line.substr(tab, len - tab).c_str(), NULL, 16);
+				glyphStr = unicode2qstr(unicodeChar);
+			} else {
+				fail = true;
+			}
+
+			if(!fail) {
+				/* Check if sign is uniliteral */
+				tab = nextTab + 1;
+				nextTab = line.find_first_of('\t', tab);
+				if(nextTab != string::npos) {	
+					if(line.substr(tab, nextTab - tab) == "1") {
+						/* Add to uniliteral list */
+						uniliteralStringList << glyphStr;
+					}
+				} else {
+					fail = true;
+				}
+			}
+
+			if(!fail) {
+				/* Check if sign is biliteral */
+				tab = nextTab + 1;
+				nextTab = line.find_first_of('\t', tab);
+				if(nextTab != string::npos) {	
+					if(line.substr(tab, nextTab - tab) == "1") {
+						/* Add to biliteral list */
+						biliteralStringList << glyphStr;
+					}
+				} else {
+					fail = true;
+				}
+			}
+
+			if(!fail) {
+				/* Check if sign is triliteral */
+				tab = nextTab + 1;
+				nextTab = line.find_first_of('\t', tab);
+				if(nextTab == string::npos) {	
+					if(line.substr(tab, nextTab - tab) == "1") {
+						/* Add to triliteral list */
+						triliteralStringList << glyphStr;
+					}
+				} else {
+					/* Too many fields on line */
+					fail = true;
+				}
+			}
+
+			/* if the wrong number of columns were found */
+			if(fail) {
+                cerr << "Problem reading literals file on line " << lineNo << ":" << "\n" << line << "\n";
+			}
+		}
+	}
 }

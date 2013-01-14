@@ -6,3 +6,6 @@ qtHiero
 moc_mainwindow.cpp
 ui_mainwindow.h
 Makefile
+
+# External code
+vendor/*

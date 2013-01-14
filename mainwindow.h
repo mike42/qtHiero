@@ -42,6 +42,7 @@ class MainWindow : public QMainWindow {
 		void addUniliteralSign(QModelIndex itemIndex);
 		void addBiliteralSign(QModelIndex itemIndex);
 		void addTriliteralSign(QModelIndex itemIndex);
+		void refreshWebView();
 
 	private:
 		Ui::MainWindow ui;

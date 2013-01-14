@@ -179,6 +179,8 @@ MainWindow :: MainWindow(QWidget *parent, Qt::WindowFlags flags)
 	connect(ui.listUniliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addUniliteralSign(QModelIndex)));
 	connect(ui.listBiliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addBiliteralSign(QModelIndex)));
 	connect(ui.listTriliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addTriliteralSign(QModelIndex)));
+	connect(ui.plainTextEdit, SIGNAL(textChanged ()), this, SLOT(refreshWebView () ));
+
 }
 
 /**
@@ -344,4 +346,17 @@ void MainWindow :: loadLiteralsFromFile(const char* literalsFilename) {
 			}
 		}
 	}
+}
+
+/** 
+ * Re-generate the rendered hieroglyphs (eg after a change)
+ **/
+void MainWindow :: refreshWebView() {
+	// TODO: Render glypghs in a separate thread
+	/* QProcess render;
+	render.start("render.php");
+	render.write(ui.plainTextEdit -> toPlainText());
+	render.write("\n");
+	more.closeWriteChannel(); */
+	ui.webView -> setHtml(QString::fromStdString("<html><body><p>") + ui.plainTextEdit -> toPlainText() + QString::fromStdString("</p></body></html>"));
 }

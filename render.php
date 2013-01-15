@@ -6,7 +6,7 @@
 
 /* Some dummy MediaWiki code to keep wikihiero happy */
 define('MEDIAWIKI', true);
-$wgExtensionAssetsPath = dirname(__FILE__)."/vendor";
+$wgExtensionAssetsPath = "file://".dirname(__FILE__)."/vendor";
 class MWInit {
 	function isHipHop() {
 		return false;

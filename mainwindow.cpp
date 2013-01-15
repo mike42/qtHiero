@@ -2,6 +2,7 @@
 
 #include <QMessageBox>
 #include <QStringListModel>
+#include <QProcess>
 
 using namespace std;
 
@@ -353,10 +354,22 @@ void MainWindow :: loadLiteralsFromFile(const char* literalsFilename) {
  **/
 void MainWindow :: refreshWebView() {
 	// TODO: Render glypghs in a separate thread
-	/* QProcess render;
-	render.start("render.php");
-	render.write(ui.plainTextEdit -> toPlainText());
+	/* Start process */
+	QProcess render;
+	render.start("php render.php");
+	if(!render.waitForStarted()) {
+		cerr << "Problem starting renderer!" << endl;
+    	return;
+	}
+
+	/* Write to it */
+	render.write(ui.plainTextEdit -> toPlainText().toUtf8().constData());
 	render.write("\n");
-	more.closeWriteChannel(); */
-	ui.webView -> setHtml(QString::fromStdString("<html><body><p>") + ui.plainTextEdit -> toPlainText() + QString::fromStdString("</p></body></html>"));
+	render.closeWriteChannel();
+
+	/* Get return string */
+	QByteArray data;
+	while(render.waitForReadyRead())
+		data.append(render.readAll());
+	ui.webView -> setHtml(data.data());
 }

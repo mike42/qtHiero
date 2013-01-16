@@ -180,8 +180,7 @@ MainWindow :: MainWindow(QWidget *parent, Qt::WindowFlags flags)
 	connect(ui.listUniliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addUniliteralSign(QModelIndex)));
 	connect(ui.listBiliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addBiliteralSign(QModelIndex)));
 	connect(ui.listTriliteral, SIGNAL(doubleClicked (QModelIndex)), this, SLOT(addTriliteralSign(QModelIndex)));
-	connect(ui.plainTextEdit, SIGNAL(textChanged ()), this, SLOT(refreshWebView () ));
-
+	connect(ui.plainTextEdit, SIGNAL(textChanged ()), this, SLOT(refreshWebView()));
 }
 
 /**
@@ -209,7 +208,7 @@ void MainWindow :: updateGardinerCategory(int itemIndex) {
 /**
  * Insert an item from the gardiner list
  **/
-void MainWindow :: addGardinerSign(QModelIndex itemIndex) {\
+void MainWindow :: addGardinerSign(QModelIndex itemIndex) {
 	QString glyphStr = ui.listGardiner -> model() -> data(itemIndex).toString();
 	appendGlyphTranslit(glyphStr);
 }
@@ -350,26 +349,44 @@ void MainWindow :: loadLiteralsFromFile(const char* literalsFilename) {
 }
 
 /** 
- * Re-generate the rendered hieroglyphs (eg after a change)
+ * After each keypress, make sure the WebView is updated
+ * 		(if it is busy rendering, tell it to re-update when done)
  **/
 void MainWindow :: refreshWebView() {
-	// TODO: Render glypghs in a separate thread
-	/* Start process */
-	QProcess render;
-	render.start("php render.php");
-	if(!render.waitForStarted()) {
-		cerr << "Problem starting renderer!" << endl;
-    	return;
+	// TODO: Wait for process in separate thread
+	if(!renderLock.tryLock()) {
+		/* Tell the busy rendering thread to repeat when it's done */
+		repeatLock.lock();
+		repeat = true;
+		repeatLock.unlock();
+	} else {
+		do {
+			/* Cancel repeating */
+			repeatLock.lock();
+			repeat = false;
+			repeatLock.unlock();
+		
+			/* Start process */
+			QProcess render;
+			render.start("php render.php");
+			if(!render.waitForStarted()) {
+				cerr << "Problem starting renderer!" << endl;
+				return;
+			}
+
+			/* Write to it */
+			render.write(ui.plainTextEdit -> toPlainText().toUtf8().constData());
+			render.write("\n");
+			render.closeWriteChannel();
+
+			/* Get return string */
+			QByteArray data;
+			while(render.waitForReadyRead())
+				data.append(render.readAll());
+
+			ui.webView -> setHtml (data.data());
+		} while(repeat);
+		renderLock.unlock();
 	}
-
-	/* Write to it */
-	render.write(ui.plainTextEdit -> toPlainText().toUtf8().constData());
-	render.write("\n");
-	render.closeWriteChannel();
-
-	/* Get return string */
-	QByteArray data;
-	while(render.waitForReadyRead())
-		data.append(render.readAll());
-	ui.webView -> setHtml(data.data());
 }
+

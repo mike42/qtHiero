@@ -8,6 +8,8 @@
 #include <map>
 #include <string>
 #include <QString>
+#include <QThread>
+#include <QMutex>
 
 struct Glyph {
 	uint32_t unicodeChar;
@@ -45,8 +47,8 @@ class MainWindow : public QMainWindow {
 		void refreshWebView();
 
 	private:
-		Ui::MainWindow ui;
 		QMap<QString, Glyph> glyph;
+		Ui::MainWindow ui;
 		QMap<QString, GardinerCategory> gardinerSignCategory;
 		QStringList uniliteralStringList, biliteralStringList, triliteralStringList;
 		QString unicode2qstr(uint32_t character);
@@ -54,4 +56,8 @@ class MainWindow : public QMainWindow {
 		QMap<QString, GardinerCategory> loadGardinerSignsFromFile(const char* categoryFilename, const char* signFilename);
 		void loadLiteralsFromFile(const char* literalsFilename);
 		void appendGlyphTranslit(QString glyphStr);
+
+		QMutex renderLock, repeatLock;
+		bool repeat;
 };
+

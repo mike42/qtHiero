@@ -25,5 +25,5 @@ W	Vessels of stone and earthenware
 X	Loaves and cakes
 Y	Writings, games, music
 Z	Strokes, signs derived from Hieratic, geometrical figures
-AA	Unclassified
+Aa	Unclassified
 

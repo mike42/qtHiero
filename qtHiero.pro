@@ -3,12 +3,16 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = qtHiero
+DESTDIR = bin
+OBJECTS_DIR = build/obj
+MOC_DIR = build/moc
+UI_DIR = build/ui
 DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-FORMS += mainwindow.ui
-HEADERS += mainwindow.h
-SOURCES += main.cpp mainwindow.cpp
+FORMS += src/mainwindow.ui
+HEADERS += src/mainwindow.h
+SOURCES += src/main.cpp src/mainwindow.cpp
 QT += webkit

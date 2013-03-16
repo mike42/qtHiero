@@ -17,4 +17,4 @@ You can then clone this repo, build, and run the app with:
     cd qtHiero/
     qmake
     make
-    ./qtHiero
+    ./bin/qtHiero

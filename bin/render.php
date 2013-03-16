@@ -6,13 +6,13 @@
 
 /* Some dummy MediaWiki code to keep wikihiero happy */
 define('MEDIAWIKI', true);
-$wgExtensionAssetsPath = "file://".dirname(__FILE__)."/vendor";
+$wgExtensionAssetsPath = "file://".dirname(__FILE__)."/../vendor";
 class MWInit {
 	function isHipHop() {
 		return false;
 	}
 }
-require_once("vendor/wikihiero/wikihiero.body.php");
+require_once(dirname(__FILE__)."/../vendor/wikihiero/wikihiero.body.php");
 
 /* Get MdC and render it */
 $code = file_get_contents("php://stdin");

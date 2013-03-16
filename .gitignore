@@ -1,9 +1,5 @@
-# Compiled files
-*.o
-qtHiero
-
-# Generated source files
-moc_mainwindow.cpp
-ui_mainwindow.h
+# Compiled and generated files
+build/*
+bin/qtHiero
 Makefile
 

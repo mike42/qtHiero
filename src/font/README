@@ -1,0 +1,8 @@
+This script will substitute the default glyphs in Wikihiero with its own,
+generated from a local copy of Aegyptus313.ttf.
+
+Before running it, you need the following packages:
+	fontforge imagemagick ttf-ancient-fonts optipng
+
+The script consumes a large amount of disk space (allow 500MB), and will take
+several hours to complete on common hardware.

@@ -246,9 +246,25 @@ void MainWindow :: appendGlyphTranslit(QString glyphStr) {
 		return;
 	}
 
+	/* Put in a dash if needed */
+	QTextCursor cursor = ui.plainTextEdit -> textCursor();
+	int position = cursor.position() - 1;
+	if(position >= 0) {
+		QChar prev = ui.plainTextEdit -> toPlainText().at(position);
+		if(prev != QChar('-') &&
+			prev != QChar(' ') &&
+			prev != QChar(':') &&
+			prev != QChar('*') &&
+			prev != QChar('-') &&
+			prev != QChar('!') &&
+			prev != QChar('\n')) {
+			cursor.insertText(QString(QChar('-')));
+		}
+	}
+	
 	/* Add MdC transliteration to box */
 	QString translit = glyph[glyphStr].translitMdC;
-	ui.plainTextEdit -> textCursor().insertText(translit);
+	cursor.insertText(translit);
 	ui.plainTextEdit -> setFocus();
 }
 

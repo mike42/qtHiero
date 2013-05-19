@@ -3,6 +3,8 @@ qtHiero
 
 This is a Qt app for marking up Ancient Egyptian texts in [Manuel de Codage](http://en.wikipedia.org/wiki/Manuel_de_Codage) format.
 
+![qtHiero Screenshot](screenshot.png?raw=true)
+
 Building
 --------
 To use this app, you need Qt4 and a font which can display Ancient Egyptian Hieroglyphs.

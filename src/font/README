@@ -4,5 +4,13 @@ generated from a local copy of Aegyptus313.ttf.
 Before running it, you need the following packages:
 	fontforge imagemagick ttf-ancient-fonts optipng
 
-The script consumes a large amount of disk space (allow 500MB), and will take
-several hours to complete on common hardware.
+The script consumes a large amount of disk space (allow 200MB), and will take
+about an hour to complete on common hardware.
+
+To return to stock glyphs, go to vendor/wikihiero and type:
+    git stash
+
+And to re-generate glyphs after this, you will need to use:
+    make clean-original
+    make clean-small
+    make

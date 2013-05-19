@@ -5,13 +5,14 @@
 # 	Triliterals: |http://en.wikipedia.org/wiki/Egyptian_triliteral_signs
 # One sign appears on multiple lists.
 # Many values are not included because their codepoint is not known:
-#  * Uniliterals {M, N, g, l, r x} are not in qtHiero database
+#  * Uniliterals {M, N, l, x} are not in qtHiero database
 #  * Biliterals {Aa18, Dd, Hp, Hw, di, gs, mw, nD, nn, qd, sA, sk, xA} are not in qtHiero database
 #  * Triliterals {isw, mAa, rwD}
 13039	0	1	0
 13076	0	1	0
 13077	0	1	0
 13079	0	1	0
+1308B	1	0	0
 13093	0	1	0
 13099	0	1	0
 13111	0	1	0
@@ -153,6 +154,7 @@
 1339F	0	1	0
 133A1	1	0	0
 133B8	0	0	1
+133BC	1	0	0
 133BF	0	1	0
 133C3	0	0	1
 133C7	0	1	0
@@ -163,4 +165,5 @@
 133F2	1	0	0
 133F4	0	0	1
 133F6	0	1	0
+1340D	1	0	0
 

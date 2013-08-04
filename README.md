@@ -17,7 +17,7 @@ You can then clone this repo, build, and run the app with:
 
     git clone --recursive https://github.com/mike42/qtHiero
     cd qtHiero/
-    qmake
+    qmake-qt4
     make
     ./bin/qtHiero
 
